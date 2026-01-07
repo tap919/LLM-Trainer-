@@ -22,6 +22,8 @@ def load_training_results(experiment_id: str) -> Dict[str, Any]:
 
 
 def generate_insights(experiment_id: str) -> Dict[str, Any]:
+    if not experiment_id.isidentifier() and not experiment_id.replace("-", "").replace("_", "").isalnum():
+        return {"experiment_id": experiment_id, "message": "Invalid experiment id."}
     data = load_training_results(experiment_id)
     metrics = data.get("metrics", [])
     losses = [m.get("loss") for m in metrics if "loss" in m]

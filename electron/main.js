@@ -26,10 +26,11 @@ app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
   if (pythonProcess) {
-    pythonProcess.kill("SIGTERM");
+    const proc = pythonProcess;
+    proc.kill("SIGTERM");
     setTimeout(() => {
-      if (pythonProcess && !pythonProcess.killed) {
-        pythonProcess.kill("SIGKILL");
+      if (!proc.killed) {
+        proc.kill("SIGKILL");
       }
     }, 2000).unref();
   }
@@ -50,6 +51,7 @@ ipcMain.handle("select-dataset", async () => {
 
 ipcMain.handle("launch-experiment", async (_event, config) => {
   const configPath = path.join(rootPath, "configs", "experiments.json");
+  fs.mkdirSync(path.dirname(configPath), { recursive: true });
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
 
   const scriptPath = path.join(pythonDir, "experiment_manager.py");
