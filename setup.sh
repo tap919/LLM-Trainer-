@@ -26,11 +26,20 @@ mkdir -p results/{models,metrics,insights}
 mkdir -p configs/training_templates
 
 echo "🐍 Installing Python dependencies..."
+if [ ! -d "python" ]; then
+  echo "Missing python directory."
+  exit 1
+fi
 cd python
 python3 -m pip install -r requirements.txt
 
 echo "📦 Installing Node dependencies..."
-cd ../electron
+cd ..
+if [ ! -d "electron" ]; then
+  echo "Missing electron directory."
+  exit 1
+fi
+cd electron
 npm install
 
 echo "✅ Setup complete. Run the app with: npm start"

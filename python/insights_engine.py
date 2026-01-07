@@ -26,7 +26,7 @@ def generate_insights(experiment_id: str) -> Dict[str, Any]:
     metrics = data.get("metrics", [])
     losses = [m.get("loss") for m in metrics if "loss" in m]
 
-    if not metrics:
+    if not metrics or not losses:
         return {"experiment_id": experiment_id, "message": "No metrics found."}
 
     insight = {

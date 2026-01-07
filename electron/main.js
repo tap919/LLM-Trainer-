@@ -27,6 +27,11 @@ app.whenReady().then(createWindow);
 app.on("window-all-closed", () => {
   if (pythonProcess) {
     pythonProcess.kill("SIGTERM");
+    setTimeout(() => {
+      if (pythonProcess && !pythonProcess.killed) {
+        pythonProcess.kill("SIGKILL");
+      }
+    }, 2000).unref();
   }
   if (process.platform !== "darwin") {
     app.quit();

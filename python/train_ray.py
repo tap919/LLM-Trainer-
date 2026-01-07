@@ -5,6 +5,8 @@ This script does not perform real distributed training but provides
 a CLI surface for future expansion.
 """
 
+from __future__ import annotations
+
 import argparse
 import json
 from pathlib import Path

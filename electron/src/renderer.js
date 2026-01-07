@@ -158,7 +158,16 @@ function bindControls() {
 
 function bootCharts() {
   const ctx = document.getElementById("loss-chart");
-  if (!ctx || typeof Chart === "undefined") return;
+  if (!ctx || typeof Chart === "undefined") {
+    const card = ctx ? ctx.closest(".metric-card") : null;
+    if (card) {
+      const placeholder = document.createElement("p");
+      placeholder.className = "placeholder";
+      placeholder.textContent = "Charts unavailable (failed to load Chart.js).";
+      card.appendChild(placeholder);
+    }
+    return;
+  }
   const labels = Array.from({ length: 10 }).map((_, i) => i);
   const data = labels.map((i) => 1.1 - i * 0.08);
   new Chart(ctx, {
