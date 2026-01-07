@@ -163,7 +163,8 @@ function bootCharts() {
     if (card) {
       const placeholder = document.createElement("p");
       placeholder.className = "placeholder";
-      placeholder.textContent = "Charts unavailable (failed to load Chart.js).";
+      placeholder.textContent =
+        "Charts unavailable. Check your network or reload to fetch Chart.js.";
       card.appendChild(placeholder);
     }
     return;

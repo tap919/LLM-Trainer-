@@ -29,7 +29,7 @@ app.on("window-all-closed", () => {
     const proc = pythonProcess;
     proc.kill("SIGTERM");
     setTimeout(() => {
-      if (!proc.killed) {
+      if (proc.exitCode === null) {
         proc.kill("SIGKILL");
       }
     }, 2000).unref();

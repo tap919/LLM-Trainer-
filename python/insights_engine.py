@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import re
 from pathlib import Path
 from statistics import mean
 from typing import Any, Dict
@@ -22,7 +23,7 @@ def load_training_results(experiment_id: str) -> Dict[str, Any]:
 
 
 def generate_insights(experiment_id: str) -> Dict[str, Any]:
-    if not experiment_id.isidentifier() and not experiment_id.replace("-", "").replace("_", "").isalnum():
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", experiment_id or ""):
         return {"experiment_id": experiment_id, "message": "Invalid experiment id."}
     data = load_training_results(experiment_id)
     metrics = data.get("metrics", [])
