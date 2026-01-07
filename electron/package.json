@@ -1,0 +1,44 @@
+{
+  "name": "cloudforge",
+  "version": "0.1.0",
+  "description": "Desktop + Cloud LLM Training Platform (prototype)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --enable-logging",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.cloudforge.app",
+    "productName": "CloudForge",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "../python",
+        "to": "python",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "../configs",
+        "to": "configs"
+      }
+    ]
+  },
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.1",
+    "python-shell": "^5.0.0"
+  }
+}

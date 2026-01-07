@@ -1,0 +1,15 @@
+{
+  "training": {
+    "base_model": "microsoft/phi-2",
+    "peft_method": "qlora",
+    "max_seq_length": 32768,
+    "learning_rate": 0.0002,
+    "num_epochs": 1,
+    "batch_size": 1
+  },
+  "rag": {
+    "enabled": false,
+    "retriever": "bm25"
+  },
+  "datasets": []
+}
