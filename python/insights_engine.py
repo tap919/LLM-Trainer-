@@ -23,7 +23,9 @@ def load_training_results(experiment_id: str) -> Dict[str, Any]:
 
 
 def generate_insights(experiment_id: str) -> Dict[str, Any]:
-    if not re.fullmatch(r"[A-Za-z0-9_-]+", experiment_id or ""):
+    if not experiment_id:
+        return {"experiment_id": experiment_id, "message": "Invalid experiment id."}
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", str(experiment_id)):
         return {"experiment_id": experiment_id, "message": "Invalid experiment id."}
     data = load_training_results(experiment_id)
     metrics = data.get("metrics", [])

@@ -33,6 +33,7 @@ app.on("window-all-closed", () => {
         proc.kill("SIGKILL");
       }
     }, 2000).unref();
+    pythonProcess = null;
   }
   if (process.platform !== "darwin") {
     app.quit();
