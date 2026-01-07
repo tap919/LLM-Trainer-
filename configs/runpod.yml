@@ -1,0 +1,13 @@
+cloud:
+  provider: runpod
+  default_gpu: RTX A6000
+  gpu_count: 1
+  spot_instance: true
+  storage_gb: 100
+  auto_shutdown_minutes: 30
+  docker_image: "unsloth/unsloth:latest"
+
+sync:
+  use_s3: false
+  bucket: ""
+  prefix: ""
