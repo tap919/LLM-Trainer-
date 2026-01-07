@@ -28,6 +28,12 @@ class TrainingConfig:
     batch_size: int = 1
 
 
+LOSS_MIN = 0.05
+LOSS_START = 1.2
+LOSS_DECAY = 0.09
+LOSS_NOISE = 0.05
+
+
 def load_config(path: Path) -> dict:
     if not path.exists():
         return {}
@@ -51,7 +57,7 @@ def simulate_training(config: TrainingConfig, datasets: list[str], experiment_id
         task = progress.add_task("[cyan]Training...", total=100)
         for step in range(10):
             time.sleep(0.4)
-            loss = max(0.05, 1.2 - step * 0.09 + random.random() * 0.05)
+            loss = max(LOSS_MIN, LOSS_START - step * LOSS_DECAY + random.random() * LOSS_NOISE)
             lr = config.learning_rate * (1 - step / 10)
             metrics.append({"step": step, "loss": round(loss, 4), "lr": round(lr, 6)})
             print(f"step={step} loss={loss:.4f} lr={lr:.6f}", flush=True)

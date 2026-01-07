@@ -121,7 +121,12 @@ ipcMain.handle("generate-insights", async (_event, experimentId) => {
     proc.on("close", (code) => {
       if (code === 0) {
         try {
-          const parsed = JSON.parse(output.trim() || "{}");
+          const trimmed = output.trim();
+          if (!trimmed) {
+            resolve({ message: "No insight output." });
+            return;
+          }
+          const parsed = JSON.parse(trimmed);
           resolve(parsed);
         } catch (e) {
           resolve({ message: output.trim() });

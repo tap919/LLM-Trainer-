@@ -49,6 +49,10 @@ async function handleSelectDataset() {
 }
 
 function buildConfig() {
+  const uid =
+    typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `exp-${Date.now()}-${Math.random().toString(16).slice(2, 6)}`;
   return {
     training: {
       base_model: qs("#base-model").value,
@@ -63,7 +67,7 @@ function buildConfig() {
       retriever: qs("#rag-retriever").value,
     },
     datasets,
-    experimentId: `exp-${Date.now()}`,
+    experimentId: uid,
   };
 }
 
